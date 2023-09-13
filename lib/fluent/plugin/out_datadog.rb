@@ -133,7 +133,7 @@ class Fluent::DatadogOutput < Fluent::Plugin::Output
           next if record.empty?
           r = record[0]
           r["ddtags"] =  extract_placeholders(@dd_tags, chunk)
-          r["dd_hostname"] = extract_placeholders(@dd_hostname, chunk)
+          r["hostname"] = extract_placeholders(@dd_hostname, chunk)
           r["service"] = extract_placeholders(@service, chunk)
 
           events.push r
