@@ -131,7 +131,12 @@ class Fluent::DatadogOutput < Fluent::Plugin::Output
         events = Array.new
         chunk.msgpack_each do |record|
           next if record.empty?
-          events.push record[0]
+          r = record[0]
+          r["ddtags"] =  extract_placeholders(@dd_tags, chunk)
+          r["dd_hostname"] = extract_placeholders(@dd_hostname, chunk)
+          r["service"] = extract_placeholders(@service, chunk)
+
+          events.push r
         end
         process_http_events(events, @use_compression, @compression_level, @max_retries, @max_backoff, DD_MAX_BATCH_LENGTH, DD_MAX_BATCH_SIZE)
       else
