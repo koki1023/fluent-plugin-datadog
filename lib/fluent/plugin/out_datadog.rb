@@ -135,6 +135,9 @@ class Fluent::DatadogOutput < Fluent::Plugin::Output
           r["ddtags"] =  extract_placeholders(@dd_tags, chunk)
           r["hostname"] = extract_placeholders(@dd_hostname, chunk)
           r["service"] = extract_placeholders(@service, chunk)
+          r["ddsource"] = extract_placeholders(@dd_source, chunk)
+          r["message"] = r["log"]
+          r.delete("log")
 
           events.push Yajl.dump(r)
         end
