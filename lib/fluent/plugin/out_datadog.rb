@@ -147,6 +147,7 @@ class Fluent::DatadogOutput < Fluent::Plugin::Output
       end
     rescue Exception => e
       log.error("Uncaught processing exception in datadog forwarder #{e.message}")
+      log.error("Backtrace: #{e.backtrace.join("\n")}")
     end
   end
 
