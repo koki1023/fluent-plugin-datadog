@@ -131,6 +131,7 @@ class Fluent::DatadogOutput < Fluent::Plugin::Output
         events = Array.new
         chunk.msgpack_each do |record|
           next if record.empty?
+          log.debug("Sending event to Datadog", :record => record)
           r = record[0]
           r["ddtags"] =  extract_placeholders(@dd_tags, chunk)
           r["hostname"] = extract_placeholders(@dd_hostname, chunk)
